@@ -1,24 +1,38 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import useAppStore from '@/store/useAppStore';
+import timerStore from '@/store/timerStore';
 import Draggable from 'react-draggable';
 import { motion } from 'framer-motion';
 import {ModeSelector, TimerControls, TimerDisplay} from "@/components/shared/timer";
 
 const PomodoroTimer = () => {
-    const { pomodoroTime, isPomodoroActive, setPomodoroTime, startPomodoro, stopPomodoro } = useAppStore();
+    const { startPomodoro, stopPomodoro } = timerStore();
+    const { pomodoroTime, shortBreak, longBreak, isPomodoroActive, isBreakActive, setPomodoroTime, startBreak, stopBreak } = timerStore();
     const [timeLeft, setTimeLeft] = useState(pomodoroTime * 60);
     const [mode, setMode] = useState<'session' | 'shortBreak' | 'longBreak'>('session');
 
     useEffect(() => {
         let timer: NodeJS.Timeout | undefined;
-        if (isPomodoroActive) {
+        if (isPomodoroActive || isBreakActive) {
             timer = setInterval(() => {
                 setTimeLeft((prev) => {
                     if (prev <= 0) {
                         clearInterval(timer!);
-                        stopPomodoro();
+                        if (mode === 'session') {
+                            startBreak();
+                            setMode('shortBreak');
+                            setTimeLeft(shortBreak * 60);
+                        } else if (mode === 'shortBreak') {
+                            setMode('longBreak');
+                            setTimeLeft(longBreak * 60);
+                            startBreak();
+                        } else {
+                            stopBreak();
+                            setMode('session');
+                            setTimeLeft(pomodoroTime * 60);
+                            startPomodoro();
+                        }
                         return 0;
                     }
                     return prev - 1;
@@ -28,7 +42,7 @@ const PomodoroTimer = () => {
             clearInterval(timer);
         }
         return () => timer && clearInterval(timer);
-    }, [isPomodoroActive, stopPomodoro]);
+    }, [isPomodoroActive, isBreakActive, mode, shortBreak, longBreak, pomodoroTime, startPomodoro, startBreak, stopBreak]);
 
     const startTimer = () => {
         setPomodoroTime(timeLeft / 60);
@@ -37,19 +51,22 @@ const PomodoroTimer = () => {
 
     const resetTimer = () => {
         stopPomodoro();
+        stopBreak();
         setTimeLeft(pomodoroTime * 60);
+        setMode('session');
     };
 
     const handleModeChange = (newMode: 'session' | 'shortBreak' | 'longBreak') => {
         setMode(newMode);
         if (newMode === 'shortBreak') {
-            setTimeLeft(5 * 60); // Short break: 5 minutes
+            setTimeLeft(shortBreak * 60); // Short break: 5 minutes
         } else if (newMode === 'longBreak') {
-            setTimeLeft(15 * 60); // Long break: 15 minutes
+            setTimeLeft(longBreak * 60); // Long break: 15 minutes
         } else {
             setTimeLeft(pomodoroTime * 60); // Session time
         }
         stopPomodoro();
+        stopBreak();
     };
 
     return (
