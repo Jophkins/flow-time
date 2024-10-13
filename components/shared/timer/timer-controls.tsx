@@ -2,24 +2,22 @@ import React from 'react';
 import {Button} from "@/components/ui/button";
 
 interface TimerControlsProps {
-    startTimer: () => void,
     resetTimer: () => void,
-    pauseTimer?: () => void,
-    isPomodoroActive?: boolean
+    toggleTimer: () => void,
+    isRunning: boolean,
 }
 
 export const TimerControls: React.FC<TimerControlsProps> = ({
-                                                                startTimer,
+                                                                toggleTimer,
                                                                 resetTimer,
-                                                                pauseTimer,
-                                                                isPomodoroActive
+                                                                isRunning
                                                             }) => (
     <div className="controls flex justify-around">
-        {isPomodoroActive ?
+        {isRunning ?
             <Button variant="ghost" className="px-4 py-2 mt-2 rounded text-white"
-                    onClick={pauseTimer}>Pause</Button> :
+                    onClick={toggleTimer}>Pause</Button> :
             <Button variant="ghost"
-                    onClick={startTimer}
+                    onClick={toggleTimer}
                     className="px-4 py-2 mt-2 rounded text-white"
             >
                 Start
