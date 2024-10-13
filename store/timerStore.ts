@@ -12,7 +12,7 @@ interface timerState {
 }
 
 const timerStore = create<timerState>((set) => ({
-    minutes: 1,
+    minutes: 25,
     shortBreak: 5,
     longBreak: 15,
     setMinutes: (time) => set({ minutes: time }),

@@ -7,7 +7,7 @@ import { motion } from 'framer-motion';
 import {ModeSelector, TimerControls, TimerDisplay} from "@/components/shared/timer";
 
 const PomodoroTimer = () => {
-    const { minutes, shortBreak, longBreak, setMinutes  } = timerStore();
+    const { minutes, setMinutes  } = timerStore();
     const [mode, setMode] = useState<'session' | 'break'>('session');
     const [isBreak, setIsBreak] = useState<boolean>(false);
     const [seconds, setSeconds] = useState<number>(0);

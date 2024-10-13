@@ -20,7 +20,7 @@ export const TimerControls: React.FC<TimerControlsProps> = ({
                     onClick={toggleTimer}
                     className="px-4 py-2 mt-2 rounded text-white"
             >
-                Start
+                {isRunning ? 'Pause' : 'Start'}
             </Button>}
         <Button variant="ghost"
             onClick={resetTimer}
