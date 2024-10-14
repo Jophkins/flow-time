@@ -5,9 +5,10 @@ import Draggable from "react-draggable";
 
 interface Props {
   className?: string;
+  player?:  JSX.Element;
 }
 
-export const DraggableFrame: React.FC<Props> = ({ className }) => {
+export const DraggableFrame: React.FC<Props> = ({ className, player }) => {
   return (
       <Draggable bounds="parent">
           <motion.div className="pomodoro-timer bg-gray-800 text-white p-6 rounded-lg shadow-lg"
@@ -16,7 +17,7 @@ export const DraggableFrame: React.FC<Props> = ({ className }) => {
                       exit={{ opacity: 0 }}
                       style={{ minWidth: '300px', textAlign: 'center' }}>
               <div className={className}>
-                  THIS FRAM IS DRAGGABLE
+                  {player}
               </div>
           </motion.div>
       </Draggable>

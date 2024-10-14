@@ -2,7 +2,7 @@
 
 import Draggable from 'react-draggable';
 import {motion} from 'framer-motion';
-import {Spotify, Youtube} from "@/app/API";
+// import {Spotify, Youtube} from "@/app/API";
 
 interface Props {
     className?: string;
@@ -17,7 +17,7 @@ export const MPlayer: React.FC<Props> = ({className}) => {
                         exit={{ opacity: 0 }}
                         style={{ minWidth: '300px', textAlign: 'center' }}>
                 <div className={className}>
-                    <Youtube />
+                    {/*<Youtube />*/}
                 </div>
             </motion.div>
         </Draggable>
