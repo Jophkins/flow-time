@@ -11,7 +11,7 @@ interface Props {
 export const DraggableFrame: React.FC<Props> = ({ className, player }) => {
   return (
       <Draggable bounds="parent">
-          <motion.div className="pomodoro-timer bg-gray-800 text-white p-6 rounded-lg shadow-lg"
+          <motion.div className="pomodoro-timer bg-gray-800 text-white p-6 rounded-lg shadow-lg z-10"
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
