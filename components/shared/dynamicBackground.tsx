@@ -39,6 +39,11 @@ const DynamicBackground = () => {
               direction: 'bottom',
               outModes: 'out',
               speed: 1,
+              attract: {
+                enable: false,
+                rotateX: 600,
+                rotateY: 1200
+              },
             },
             opacity: {
               value: 0.7,
@@ -57,47 +62,66 @@ const DynamicBackground = () => {
       case 'rain':
         return {
           particles: {
-            number: {
-              value: 500,
-            },
-            shape: {
-              type: 'line',
-            },
-            size: {
-              value: 30, // Длина линий дождя
-            },
             move: {
+              attract: {
+                enable: false,
+                rotateX: 600,
+                rotateY: 1200
+              },
+              bounce: false,
+              direction: "bottom",
               enable: true,
-              direction: 'bottom',
-              speed: 60, // Скорость падения капель
-              outModes: 'out',
+              outMode: "out",
+              random: true,
+              speed: 30,
+              straight: true
             },
-            color: {
-              value: '#4a90e2',
+            number: {
+              density: {
+                enable: true,
+                area: 800
+              },
+              limit: 0,
+              value: 200
             },
             opacity: {
-              value: 0.5,
-            },
-            rotate: {
-              value: {
-                min: -60,
-                max: -60,
-              },
               animation: {
                 enable: false,
+                minimumValue: 0.1,
+                speed: 1,
+                sync: false
               },
+              random: false,
+              value: 0.5
             },
-            // Дополнительный параметр tilt для наклона линий
-            tilt: {
-              enable: true,
-              value: {
-                min: -15,
-                max: -15,
+            shape: {
+              character: {
+                fill: false,
+                font: "Verdana",
+                style: "",
+                value: "2",
+                weight: "400"
               },
+              image: [],
+              polygon: {
+                nb_sides: 5
+              },
+              stroke: {
+                color: "#efefefee",
+                width: 10
+              },
+              type: "line"
+            },
+            size: {
               animation: {
                 enable: false,
+                minimumValue: 0.1,
+                speed: 40,
+                sync: false
               },
-            },
+              random: false,
+              value: 0.2
+            }
           },
         };
       case 'sunlight':
@@ -159,15 +183,15 @@ const DynamicBackground = () => {
             className="absolute top-0 left-0 w-full h-full z-10"
         />
          {/*Background video for dynamic effects*/}
-        <video
-            autoPlay
-            loop
-            muted
-            className="absolute top-0 left-0 w-full h-full object-cover z-0"
-        >
-          <source src="/media/rainy-city.mp4" type="video/mp4" />
-          Ваш браузер не поддерживает видео тег.
-        </video>
+        {/*<video*/}
+        {/*    autoPlay*/}
+        {/*    loop*/}
+        {/*    muted*/}
+        {/*    className="absolute top-0 left-0 w-full h-full object-cover z-0"*/}
+        {/*>*/}
+        {/*  <source src="/media/rainy-city.mp4" type="video/mp4" />*/}
+        {/*  Your browser doesn&#39;t support this tag*/}
+        {/*</video>*/}
       </div>
   );
 };
